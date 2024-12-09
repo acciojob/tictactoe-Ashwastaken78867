@@ -1,43 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="styles.css" />
-	  <style>
-  .board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 5px;
-    width: 300px;
-    height: 300px;
-    margin: 20px auto;
-  }
+    <style>
+      .container {
+        text-align: center;
+        margin-top: 50px;
+      }
 
-  .board div {
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    cursor: pointer;
-    background-color: #f9f9f9;
-  }
+      .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        gap: 5px;
+        margin: 20px auto;
+      }
 
-  .board div:hover {
-    background-color: #e0e0e0;
-  }
-</style>
+      .board div {
+        border: 2px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #f9f9f9;
+      }
 
+      .board div:hover {
+        background-color: #e0e0e0;
+      }
 
+      .message {
+        margin: 20px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      input {
+        margin: 10px;
+        padding: 5px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <!-- Input Section -->
       <div class="input-section" id="input-section">
         <h1>Tic Tac Toe</h1>
-        <input type="text" id="player1" placeholder="Enter Name Player 1" required />
-        <input type="text" id="player2" placeholder="Enter Name Player 2" required />
+        <input type="text" id="player-1" placeholder="Enter Name Player 1" required />
+        <input type="text" id="player-2" placeholder="Enter Name Player 2" required />
         <button id="submit">Submit</button>
       </div>
 
@@ -76,6 +105,7 @@
         for (let i = 0; i < 9; i++) {
           const cell = document.createElement("div");
           cell.id = i;
+          cell.textContent = ""; // Ensure initial state is empty
           cell.addEventListener("click", () => handleCellClick(i));
           boardElement.appendChild(cell);
         }
@@ -88,7 +118,7 @@
         document.getElementById(index).textContent = board[index];
 
         if (checkWinner()) {
-          messageElement.textContent = `${players[currentPlayerIndex]}, Congrats you won!`;
+          messageElement.textContent = `${players[currentPlayerIndex]} congratulations you won!`;
         } else if (board.every((cell) => cell)) {
           messageElement.textContent = "It's a Draw!";
         } else {
@@ -106,8 +136,8 @@
       }
 
       submitButton.addEventListener("click", () => {
-        const player1 = document.getElementById("player1").value.trim();
-        const player2 = document.getElementById("player2").value.trim();
+        const player1 = document.getElementById("player-1").value.trim();
+        const player2 = document.getElementById("player-2").value.trim();
 
         if (!player1 || !player2) {
           alert("Please enter the name of both players");
